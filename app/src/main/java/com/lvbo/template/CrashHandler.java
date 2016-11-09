@@ -1,7 +1,10 @@
 package com.lvbo.template;
 
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -28,7 +31,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
     //CrashHandler实例
     private static CrashHandler INSTANCE;
     //程序的Context对象
-    private Context mContext;
+    private MyApplication mContext;
     //用来存储设备信息和异常信息
     private Map<String, String> infos = new HashMap<String, String>();
 
@@ -49,7 +52,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
      *
      * @param context
      */
-    public void init(Context context) {
+    public void init(MyApplication context) {
         mContext = context;
         //获取系统默认的UncaughtException处理器
         mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();
@@ -66,14 +69,23 @@ public class CrashHandler implements UncaughtExceptionHandler {
             //如果用户没有处理则让系统默认的异常处理器来处理
             mDefaultHandler.uncaughtException(thread, ex);
         } else {
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-//                LogUtils.e(e.toString());
-            }
+//            try {
+//                Thread.sleep(3000);
+//            } catch (InterruptedException e) {
+////                LogUtils.e(e.toString());
+//            }
+
+
+            Intent intent = new Intent(mContext, MainActivity.class);
+            PendingIntent restartIntent = PendingIntent.getActivity(
+                    mContext, 0, intent,
+                    PendingIntent.FLAG_CANCEL_CURRENT);
             //退出程序
-            android.os.Process.killProcess(android.os.Process.myPid());
-            System.exit(1);
+            AlarmManager mgr = (AlarmManager)MyApplication.getInstance().getSystemService(Context.ALARM_SERVICE);
+            mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 1000,
+                    restartIntent); // 1秒钟后重启应用
+            mContext.finishActivity();
+
         }
     }
 

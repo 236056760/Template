@@ -62,8 +62,15 @@ public class TutorialFmt extends BaseFragment {
         rightMen.setTypeface(getBaseActivity(), getString(R.string.Apex_New_Medium));
         rightMen.setText(getResources().getString(R.string.skip));
         rightMen.setTextColor(getResources().getColor(R.color.color_black));
+        rightMen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((RelativeLayout)view).setOnClickListener(null);
+            }
+        });
 
         adapter = new TutorialPagerAdapter(getChildFragmentManager());
+
 
         tutorialViewpager.setAdapter(adapter);
         tutorialViewpager.setOnPageChangeListener(new TutorialOnPageChangeListener(tutorialDotPanel, txtDescript));
