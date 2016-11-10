@@ -42,6 +42,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(contentView);
         unbinder=ButterKnife.bind(this);
         setUp(contentView);
+        MyApplication.getInstance().addActivity(this);
     }
 
     @Override
@@ -106,6 +107,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+        MyApplication.getInstance().removeActivity(this);
     }
 
     ProgressDialog progressDialog;

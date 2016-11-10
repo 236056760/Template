@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide;
 import com.lvbo.template.R;
 import com.lvbo.template.base.BaseFragment;
 import com.lvbo.template.base.BasePresenter;
+import com.lvbo.template.common.Utils.ImageLoadUtil;
 
 /**
  * Created by chrisyu on 4/3/16.
@@ -49,6 +50,7 @@ public class TutorialItemFmt extends BaseFragment {
         mPage = getArguments().getInt(PAGE);
 
         Glide.with(this).load(mPage).into(tutorialImage);
+        ImageLoadUtil.loadImg(tutorialImage,mPage);
     }
 
 

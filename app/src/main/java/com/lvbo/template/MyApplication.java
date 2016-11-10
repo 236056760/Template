@@ -35,7 +35,7 @@ public class MyApplication extends Application {
         LeakCanary.install(this);
 
         //这句主要是为了支持https的图片
-        Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpsFactory());
+//        Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpsFactory());
 
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(applicationContext);
