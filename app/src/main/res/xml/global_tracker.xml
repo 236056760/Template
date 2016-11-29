@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="ga_sessionTimeout">300</integer>
+
+    <string name="ga_trackingId">UA-86025748-1</string>
+
+    <!--要将应用中所有未捕获的异常自动发送到 Google Analytics（分析），请在您的 XML 配置文件中添加此行内容-->
+    <bool name="ga_reportUncaughtExceptions">true</bool>
+</resources>

@@ -10,6 +10,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 
+import com.google.firebase.crash.FirebaseCrash;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -74,7 +76,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 //            } catch (InterruptedException e) {
 ////                LogUtils.e(e.toString());
 //            }
-
+            FirebaseCrash.report(new Exception(ex.getMessage()));
 
             Intent intent = new Intent(mContext, MainActivity.class);
             PendingIntent restartIntent = PendingIntent.getActivity(

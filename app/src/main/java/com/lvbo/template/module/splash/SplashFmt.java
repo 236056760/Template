@@ -14,6 +14,9 @@ import com.lvbo.template.module.login.ILogin;
 import com.lvbo.template.module.login.LoginPresenter;
 import com.lvbo.template.module.tutorial.TutorialFmt;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Created by lvbo on 16/9/2.
@@ -32,7 +35,8 @@ public class SplashFmt extends BaseFragment implements ILogin.view {
 
     @Override
     public BasePresenter getPresenter() {
-        return presenter=new LoginPresenter(this);
+//        return presenter=new LoginPresenter(this);
+        return null;
     }
 
     @Override
@@ -47,8 +51,11 @@ public class SplashFmt extends BaseFragment implements ILogin.view {
 //        hiddenView(topToolBar);
         setUnLock();
 
+
         setToolBarTransparent(false);
         gotoNextFragment();
+
+
 
 //        presenter.login();
     }
@@ -104,6 +111,7 @@ public class SplashFmt extends BaseFragment implements ILogin.view {
         contentView.postDelayed(new Runnable() {
             @Override
             public void run() {
+//                presenter.login();
                 if (getBaseActivity() == null) {
                     return;
                 }
@@ -134,6 +142,7 @@ public class SplashFmt extends BaseFragment implements ILogin.view {
                 }
             }
         }, 500);
+        throw new RuntimeException("1231312fabrio This is a crash");
     }
 
     @Override

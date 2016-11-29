@@ -8,6 +8,7 @@ import android.content.Intent;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.analytics.ExceptionReporter;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.lvbo.template.network.OkHttpsFactory;
@@ -38,8 +39,16 @@ public class MyApplication extends Application {
 //        Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpsFactory());
 
         CrashHandler crashHandler = CrashHandler.getInstance();
-        crashHandler.init(applicationContext);
+//        crashHandler.init(applicationContext);
 
+        //使用Google Analytics收集crash,
+        // 方案一:Thread.setDefaultUncaughtExceptionHandler;
+        // 方案二:自动配置请在您的 XML 配置文件中添加此行内容：<bool name="ga_reportUncaughtExceptions">true</bool>
+        Thread.UncaughtExceptionHandler myHandler = new ExceptionReporter(
+                getDefaultTracker(),
+                Thread.getDefaultUncaughtExceptionHandler(),
+                applicationContext);
+//        Thread.setDefaultUncaughtExceptionHandler(myHandler);
 
     }
 
@@ -55,8 +64,8 @@ public class MyApplication extends Application {
         if (mTracker == null) {
             GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
             // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
-//            mTracker = analytics.newTracker(R.xml.global_tracker);
-            mTracker = analytics.newTracker("UA-86025748-1");//需要改成相应项目的id
+            mTracker = analytics.newTracker(R.xml.global_tracker);
+//            mTracker = analytics.newTracker("UA-86025748-1");//需要改成相应项目的id
         }
         return mTracker;
     }

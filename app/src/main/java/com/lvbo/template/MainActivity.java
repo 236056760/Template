@@ -43,7 +43,7 @@ public class MainActivity extends BaseActivity implements DrawerLayout.DrawerLis
 //        EventBus.getDefault().register(this);
 
         ScreenUtils.getSCREEN(this);
-        replaceFragment(TutorialFmt.getInstance());
+        replaceFragment(SplashFmt.getInstance());
 //        replaceFragment(MapLocatorFmt.getInstance());
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerLayout.addDrawerListener(this);
